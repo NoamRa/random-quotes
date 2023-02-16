@@ -1,6 +1,8 @@
 [[redirects]]
   from = "https://zenquotes.io/*"
   to = "https://noam-quotes.netlify.app/:splat"
+  status = 200
+  force = true
 
 [[headers]]
   for = "/*"
