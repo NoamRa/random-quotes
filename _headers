@@ -1,2 +1,2 @@
-/*
-  Access-Control-Allow-Origin: *
+/api/random
+  Access-Control-Allow-Origin: noam-quotes.netlify.app
