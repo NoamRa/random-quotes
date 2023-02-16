@@ -24,7 +24,7 @@
         .then((res) => res.json())
         // .then(d => { console.log(d); return d })
         .then((data) => data[0])
-        .then(({ q, a }) => updateHtml(q, a));
+        .then(({ q, a }) => updateHtml(q, a))
         .catch(console.error)
     }
 
