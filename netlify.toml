@@ -1,6 +1,6 @@
 [[redirects]]
-  from = "https://zenquotes.io/*"
-  to = "https://noam-quotes.netlify.app/:splat"
+  from = "/api/random"
+  to = "https://zenquotes.io/api/random"
   status = 200
   force = true
 
