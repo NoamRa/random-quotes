@@ -1,56 +1,60 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8" />
-    <style type="text/css">
-      * {
-        box-sizing: border-box;
-      }
-      main {
-        width: 80vw;
-      }
 
-      #content {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-      }
-
-      blockquote {
-        font-size: 3rem;
-      }
-
-      cite {
-        align-self: flex-end;
-        font-size: 2rem;
-      }
-    </style>
-  </head>
-
-  <body>
-    <main>
-      <div id="content">Loading...</div>
-      <button id="reload">Get another quote</button>
-    </main>
-  </body>
-
-  <script type="text/javascript">
-    function updateHtml(quote, author) {
-      const content = document.getElementById("content");
-      content.innerHTML = `<blockquote>${quote}</blockquote><cite>- ${author}</cite>`;
+<head>
+  <meta charset="utf-8" />
+  <style type="text/css">
+    * {
+      box-sizing: border-box;
     }
 
-    async function getQuote() {
-      fetch("https://noam-quotes.netlify.app/quote")
-        .then((res) => res.json())
-        // .then(d => { console.log(d); return d })
-        .then((data) => data[0])
-        .then(({ q, a }) => updateHtml(q, a))
-        .catch(console.error);
+    main {
+      width: 80vw;
     }
 
-    document.getElementById("reload").addEventListener("click", getQuote);
+    #content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
 
-    getQuote();
-  </script>
+    blockquote {
+      font-size: 3rem;
+    }
+
+    cite {
+      align-self: flex-end;
+      font-size: 2rem;
+    }
+  </style>
+</head>
+
+<body>
+  <main>
+    <div id="content">Loading...</div>
+    <button id="reload">Get another quote</button>
+  </main>
+  <footer>Inspirational quotes provided by <a href="https://zenquotes.io/" target="_blank">ZenQuotes API</a></footer>
+</body>
+
+<script type="text/javascript">
+  function updateHtml(quote, author) {
+    const content = document.getElementById("content");
+    content.innerHTML = `<blockquote>${quote}</blockquote><cite>- ${author}</cite>`;
+  }
+
+  async function getQuote() {
+    fetch("https://noam-quotes.netlify.app/quote")
+      .then((res) => res.json())
+      // .then(d => { console.log(d); return d })
+      .then((data) => data[0])
+      .then(({ q, a }) => updateHtml(q, a))
+      .catch(console.error);
+  }
+
+  document.getElementById("reload").addEventListener("click", getQuote);
+
+  getQuote();
+</script>
+
 </html>
