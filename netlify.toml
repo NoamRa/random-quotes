@@ -1,6 +1,6 @@
 [[redirects]]
-  from = "/api"
-  to = "https://zenquotes.io/api"
+  from = "/*"
+  to = "https://zenquotes.io/*"
   status = 200
   force = true
   headers = {X-From = "Netlify"}
