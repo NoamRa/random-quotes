@@ -6,7 +6,6 @@
 
   <body>
     <main>
-      t
       <div id="content">Loading...</div>
       <button id="reload">Get random quote</button>
     </main>
@@ -20,7 +19,7 @@
 
     async function getQuote() {
       fetch(
-          "https://zenquotes.io/api/random"
+          "https://noam-quotes.netlify.app/quote"
       )
         .then((res) => res.json())
         // .then(d => { console.log(d); return d })

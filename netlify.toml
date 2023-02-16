@@ -1,5 +1,5 @@
 [[redirects]]
-  from = "/api/random"
+  from = "/quote"
   to = "https://zenquotes.io/api/random"
   status = 200
   force = true
