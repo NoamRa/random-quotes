@@ -38,13 +38,17 @@
 </body>
 
 <script type="text/javascript">
+  const QUOTES_URL = window.location.hostname === 'localhost'
+    ? 'https://api.allorigins.win/raw?url=https://zenquotes.io/api/random' // use https://allorigins.win to remove cors
+    : "https://noam-quotes.netlify.app/quote" // redirected from https://zenquotes.io/ using netlify. see netlify.toml
+
   function updateHtml(quote, author) {
     const content = document.getElementById("content");
-    content.innerHTML = `<blockquote>${quote}</blockquote><cite>- ${author}</cite>`;
+    content.innerHTML = `<blockquote>${quote}</blockquote><cite>&mdash; ${author}</cite>`;
   }
 
   async function getQuote() {
-    fetch("https://noam-quotes.netlify.app/quote")
+    fetch(QUOTES_URL)
       .then((res) => res.json())
       // .then(d => { console.log(d); return d })
       .then((data) => data[0])
