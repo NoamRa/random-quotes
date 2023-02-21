@@ -9,10 +9,15 @@
       }
 
       main {
-        width: 80vw;
+        padding-left: 10vw;
+        padding-right: 10vw;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
       }
 
       #content {
+        padding-bottom: 20px;
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -26,6 +31,10 @@
         align-self: flex-end;
         font-size: 2rem;
       }
+
+      #acknowledgment {
+        align-self: flex-end;
+      }
     </style>
   </head>
 
@@ -34,10 +43,6 @@
       <div id="content">Loading...</div>
       <button id="reload">Get another quote</button>
     </main>
-    <footer>
-      Inspirational quotes provided by
-      <a href="https://zenquotes.io/" target="_blank">ZenQuotes API</a>
-    </footer>
   </body>
 
   <script type="text/javascript">
@@ -46,18 +51,48 @@
         ? "https://api.allorigins.win/raw?url=https://zenquotes.io/api/random" // use https://allorigins.win to remove cors
         : "https://noam-quotes.netlify.app/quote"; // redirected from https://zenquotes.io/ using netlify. see netlify.toml
 
-    function updateHtml(quote, author) {
-      const content = document.getElementById("content");
-      content.innerHTML = `<blockquote>${quote}</blockquote><cite>&mdash; ${author}</cite>`;
+    const ASSETS = [
+      {
+        src: "./assets/football.jpg",
+        quote: "Football is life",
+        author: "Dani Rojas",
+      },
+    ];
+
+    const contentNode = document.getElementById("content");
+
+    function randomInt(max = 10, min = 0) {
+      return Math.floor(Math.random() * (max - min)) + min;
     }
 
-    async function getQuote() {
-      fetch(QUOTES_URL)
-        .then((res) => res.json())
-        // .then(d => { console.log(d); return d })
-        .then((data) => data[0])
-        .then(({ q, a }) => updateHtml(q, a))
-        .catch(console.error);
+    function getQuoteFromImage() {
+      const { src, quote, author } = ASSETS[randomInt(ASSETS.length)];
+      const text = `${quote} - ${author}`;
+      contentNode.innerHTML = `
+        <blockquote><img src="${src}" alt="${text}" title="${text}" /></blockquote><cite>&mdash; ${author}</cite>`;
+    }
+
+    function getQuoteFromAPI() {
+      function updateHtml(quote, author) {
+        contentNode.innerHTML = `
+        <blockquote>${quote}</blockquote>
+        <cite>&mdash; ${author}</cite>
+        <span id="acknowledgment">Inspirational quotes provided by<a href="https://zenquotes.io/" target="_blank">ZenQuotes API</a></span>`;
+      }
+
+      function getQuote() {
+        fetch(QUOTES_URL)
+          .then((res) => res.json())
+          .then((data) => data[0])
+          .then(({ q, a }) => updateHtml(q, a))
+          .catch(console.error);
+      }
+
+      getQuote();
+    }
+
+    function getQuote() {
+      randomInt() > 8 ? getQuoteFromImage() : getQuoteFromAPI();
     }
 
     document.getElementById("reload").addEventListener("click", getQuote);
